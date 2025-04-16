@@ -1,7 +1,7 @@
 baseURL = 'https://commitconfirm.com'
 languageCode = 'en-us'
 title = 'Commit Confirm'
-theme = [ "hugo-admonitions", "maverick"]
+theme = [ "hugo-admonitions", "maverick-modified"]
 
 [permalinks]
   pages = "/:slug"
