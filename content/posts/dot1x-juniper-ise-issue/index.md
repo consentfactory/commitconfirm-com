@@ -1,5 +1,5 @@
 ---
-title: "Juniper Mist Dot1x User Authetnication Issue"
+title: "Juniper Mist Dot1x User Authentication Issue"
 description: "Exploring the cause and solution of a strange dot1x issue from a Juniper Mist deployment."
 date: "2025-04-15"
 draft: false
@@ -113,16 +113,16 @@ Below is an example of this failure scenario that encountered with the following
 - Juniper EX 4100 Switch
 - Cisco ISE 3.1
 
-0. We assume machine authentication has succeeded (see above) and/or machine network connectivity is functioning normally. 
-1. A new user to the machine logs into Windows device and begins user authentication processes. 
-2. Wired-AutoConfig restarts the authentication process and ends the EAP session due to the user logging into the device.  
+0. We assume machine authentication has succeeded (see above) and/or machine network connectivity is functioning normally.
+1. A new user to the machine logs into Windows device and begins user authentication processes.
+2. Wired-AutoConfig restarts the authentication process and ends the EAP session due to the user logging into the device. 
 {{< img src="attachments/userCertMissing01.png" alt="" >}}
-3. The NDIS authorization state changes from 'Authroized' to 'UnAuthorized'. 
+3. The NDIS authorization state changes from 'Authroized' to 'UnAuthorized'.
 {{< img src="attachments/userCertMissing02.png" alt="" >}}
 4. Wired-AutoConfig starts, but because the user does not have a client certificate yet, the Wired-AutoConfig service sends a null/blank certificate list to the NAC. 
 {{< img src="attachments/userCertMissing03.png" alt="" >}}
-5. Switch forwards  the EAP authentication message to the NAC. 
-6. NAC immediately denies the authentication session due to a blank certificate and sends an 'Access-Reject' to the switch because of blank certificate. 
+5. Switch forwards  the EAP authentication message to the NAC.
+6. NAC immediately denies the authentication session due to a blank certificate and sends an 'Access-Reject' to the switch because of blank certificate.
 7. Switch receives 'Access-Reject' and puts port in unauthorized state, forwarding response to machine.
 {{< img src="attachments/userCertMissing04.png" alt="" >}}
 8. Wired-AutoConfig receives EAP failure and immediately suspends any authentication services for 60 seconds. 
