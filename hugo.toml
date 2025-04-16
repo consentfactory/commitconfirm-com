@@ -13,8 +13,8 @@ theme = [ "hugo-admonitions", "maverick-modified"]
   items = 10
 
   [params.comments]
-    enabled = false
-    githubRepo = 'canhtran/maverick'
+    enabled = true
+    githubRepo = 'consentfactory/commitconfirm-com'
     theme = 'github-light'
 
 
