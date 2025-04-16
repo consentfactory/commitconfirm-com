@@ -11,9 +11,9 @@ It was a December holiday break, and I was working away, preparing for a coming 
 
 {{< img src="attachments/Chronosphere-20250319_1332.48.gif" alt="We need help with Juniper switching" width="70%" caption="$customer calls for aid!" >}}
 
-{{< img src="attachments/Chronosphere-20250319_1336.47.gif" alt="Jimmy will answer" width="70%" caption="And JImmy will answer." >}}
+{{< img src="attachments/Chronosphere-20250319_1336.47.gif" alt="Jimmy will answer" width="70%" caption="And Jimmy will answer." >}}
 
-It appears that $customer is having a problem with *dot1x-hotdesking* (same device, multiple users) on Juniper switching with *new* users. Cisco switching its working fine, but something is up on the Juniper side. If a user's profile has been provisioned already, it works fine; AD-joined Windows devices are working fine as well. 
+It appears that $customer is having a problem with *dot1x-hotdesking* (same device, multiple users) on Juniper switching with *new* users. Cisco switching is working fine, but something is up on the Juniper side. If a user's profile has been provisioned already, it works fine; AD-joined Windows devices are working fine as well. 
 
 The cause and solution to this dot1x-hotdesking issue were both fascinating to discover, and the research that I had to perform for this problem really helped me understand what the heck is going on between network switch supplicants, authenticators, and network access control systems. Below is a compilation of my research and what I figured out. 
 
@@ -32,11 +32,11 @@ The cause and solution to this dot1x-hotdesking issue were both fascinating to d
 Below is a brief demonstration of normal authentication and the problem this customer had on Juniper switches.
 ### Normal 802.1x Authentication
 
-{{< img src="attachments/dot1x_general_normal_cx.png" alt="Normal dot1x for user authenticaiton" caption="Right-click and open image in new tab for full size" >}}
+{{< img src="attachments/dot1x_general_normal_cx.png" alt="Normal dot1x for user authentication" caption="Right-click and open image in new tab for full size" >}}
 
 ### 802.1x - User Cert Missing
 
-{{< img src="attachments/dot1x_general_user-cert-missing.png" alt="User ceritificate missing in dot1x" caption="Right-click and open image in new tab for full size" >}}
+{{< img src="attachments/dot1x_general_user-cert-missing.png" alt="User certificate missing in dot1x" caption="Right-click and open image in new tab for full size" >}}
 ## Solution
 
 There are actually a few different solutions to this problem, and some of those are in the links at the bottom. 
@@ -84,7 +84,7 @@ First off, let me remind you that this is just one solution of many for the Wind
 Here's how this is broken down:
 
 1. Discuss the whole hotdesking problem and briefly show how dot1x works on Windows devices. Or link to someone who already has. 
-2. Go through a sequence diagram of the problem itself, explaining where the missing user certificate appears during the process and hwo all the components in the system are part of the process.
+2. Go through a sequence diagram of the problem itself, explaining where the missing user certificate appears during the process and how all the components in the system are part of the process.
 3. Go through the switch configurations for both Cisco and Juniper, because it worked on Cisco, so why not Juniper?
 4. Another sequence diagram, but this one explaining and showing how *successful* machine-to-user-login dot1x authentication works. 
 5. Explain how the network access control (NAC) server (ISE, in this case) acts as part of the whole process, and how group membership works with MAB to assist the Windows machine in getting a server.
@@ -94,11 +94,11 @@ Here's how this is broken down:
 
 The essential problem of 802.1x authentication in hot desk scenarios on Windows machines is that typically the user profile hasn't been provisioned, let alone the profile provisioned/enrolled with a user certificate. 
 
-To see why, we need to see how the process works. Here's a high-level diagram explaining the process by Jacob Fredriksson. [Fredriksson breaks it down in-detail on their website](https://www.wiresandwi.fi/blog/windows-network-authentication-sequence) .
+To see why, we need to see how the process works. Here's a high-level diagram explaining the process by Jacob Fredriksson. [Fredriksson breaks it down in detail on their website](https://www.wiresandwi.fi/blog/windows-network-authentication-sequence) .
 
 {{< img src="attachments/windowsNetworkAuthBreakdown.png" alt="Diagram of Windows Network Authentication" caption="Right-click and open image in new tab for full size" >}}
 
-As they explain, the user certificate enrollment process begins *after* a user logs-in for the first time on a machine, which results in an authentication failure because the supplicant has no certificate to send to the NAC, so it sends a null/blank certificate, and of course the NAC with reject the authentication attempt.
+As they explain, the user certificate enrollment process begins *after* a user logs-in for the first time on a machine, which results in an authentication failure because the supplicant has no certificate to send to the NAC, so it sends a null/blank certificate, and of course the NAC will reject the authentication attempt.
 
 ## Example: User Certificate Missing, Authentication Rejected
 
@@ -111,17 +111,15 @@ Below is an example of this failure scenario that encountered with the following
 
 - Windows 11 Desktop
 - Juniper EX 4100 Switch
-- Cisco ISE 3.1
-
-0. We assume machine authentication has succeeded (see above) and/or machine network connectivity is functioning normally.
+- Cisco ISE 3.1... 0. We assume machine authentication has succeeded (see above) and/or machine network connectivity is functioning normally.
 1. A new user to the machine logs into Windows device and begins user authentication processes.
 2. Wired-AutoConfig restarts the authentication process and ends the EAP session due to the user logging into the device. 
 {{< img src="attachments/userCertMissing01.png" alt="" >}}
-3. The NDIS authorization state changes from 'Authroized' to 'UnAuthorized'.
+3. The NDIS authorization state changes from 'Authorized' to 'Unauthorized'.
 {{< img src="attachments/userCertMissing02.png" alt="" >}}
 4. Wired-AutoConfig starts, but because the user does not have a client certificate yet, the Wired-AutoConfig service sends a null/blank certificate list to the NAC. 
 {{< img src="attachments/userCertMissing03.png" alt="" >}}
-5. Switch forwards  the EAP authentication message to the NAC.
+5. Switch forwards the EAP authentication message to the NAC.
 6. NAC immediately denies the authentication session due to a blank certificate and sends an 'Access-Reject' to the switch because of blank certificate.
 7. Switch receives 'Access-Reject' and puts port in unauthorized state, forwarding response to machine.
 {{< img src="attachments/userCertMissing04.png" alt="" >}}
@@ -138,7 +136,7 @@ Full version of this here:
 
 ## Switch Configurations 
 
-The customer notified me that while dot1x authentication was working on Cisco switches when users had not yet logged onto the machine. Of course that seems crazy to me because the process is the same on Windows or Juniper, so what's different? 
+The customer notified me that dot1x authentication was working on Cisco switches when users had not yet logged onto the machine. Of course that seems crazy to me because the process is the same on Windows or Juniper, so what's different? 
 
 ### Cisco IOS Config
 
@@ -151,7 +149,7 @@ interface GigabitEthernet0/0/1
  ! MAB in this case, if the first one fails
  authentication event fail action next-method
  
- ! Allows mulitiple supplicants to auth from the same port
+ ! Allows multiple supplicants to auth from the same port
  authentication host-mode multi-auth
  
  ! This sets the authentication order, and is crucial in
@@ -159,7 +157,7 @@ interface GigabitEthernet0/0/1
  authentication order dot1x mab
  
  ! This allows the user certificate auth to override the MAB
- ! auth once authenitication happens
+ ! auth once authentication happens
  authentication priority dot1x mab
  
  ! Gotta enable MAB
@@ -190,7 +188,7 @@ The 'Enhanced Timers' configuration makes the following changes:
 {{< img src="attachments/enhancedTimersMist.png" alt="" >}}
 
 > [!NOTE]
-> Juniper Mist changed how you can see the configuration changes for items like 'Enhanced Timers', and I think its for the worse. Above is the delta/change output back in November 2024. As of April 2025, it now looks like this:
+> Juniper Mist changed how you can see the configuration changes for items like 'Enhanced Timers', and I think it's for the worse. Above is the delta/change output back in November 2024. As of April 2025, it now looks like this:
 > 
 > {{< img src="attachments/newEnhancedTimersPreviewChanges2025.png" alt="" >}}
 
@@ -198,7 +196,7 @@ The port profile equivalent in Juniper Mist Wired Assurance is below:
 {{< img src="attachments/mistWiredAssurancePortProfileDot1x.png" alt="" >}}
 #### Junos CLI
 
-Dot1x settings are centrally location in Junos configurations under Protocols > dot1x. The process involves creating a profile with dot1x settings and adding interfaces to that profile. In this case, the logical interface-range interface *dot1x-testing* is added to the profile 'dot1x'.
+Dot1x settings are centrally located in Junos configurations under Protocols > dot1x. The process involves creating a profile with dot1x settings and adding interfaces to that profile. In this case, the logical interface-range interface *dot1x-testing* is added to the profile 'dot1x'.
 
 ~~~Junos-Config
 authenticator {
@@ -239,35 +237,33 @@ set protocols dot1x authenticator interface dot1x-testing server-fail use-cache
 ## How does it work? Successful Machine-to-User Authentication
 
 Ok, so we've got this hack on the switch side of things to leverage the 60 second timer on the Windows side of things and quickly fail dot1x over to MAB. But how does it actually work?
-{{< img src="attachments/howDoesItActuallyWork.gif" alt="" >}}
-
-I'm no **[Veritasium](attachments/https://www.youtube.com/@veritasium)**, but here's the breakdown of how this whole thing works. Prepare your eyes for this eyechart.
+{{< img src="attachments/howDoesItActuallyWork.gif" alt="" >}}... I'm no **[Veritasium](attachments/https://www.youtube.com/@veritasium)**, but here's the breakdown of how this whole thing works. Prepare your eyes for this eye chart.
  
 0. We assume machine authentication has succeeded (see above) and/or machine network connectivity is functioning normally.
 1. A new user to the machine logs into Windows device and begins user authentication processes.
 2. Wired-AutoConfig restarts the authentication process and ends the EAP session due to the user logging into the device. 
 {{< img src="attachments/userAuthSucess01.png" alt="" >}}
-3. The NDIS authorization state changes from 'Authroized' to 'UnAuthorized'.
+3. The NDIS authorization state changes from 'Authorized' to 'Unauthorized'.
 {{< img src="attachments/userAuthSucess02.png" alt="" >}}
 4. Wired-AutoConfig starts, but because the user does not have a client certificate yet, the Wired-AutoConfig service sends a null/blank certificate list to the NAC. 
 {{< img src="attachments/userAuthSucess03.png" alt="" >}}
-5. Switch forwards the EAP authentication message to the NAC . 
+5. Switch forwards the EAP authentication message to the NAC. 
 6. NAC immediately denies the authentication session due to a blank certificate and sends an 'Access-Reject' to the switch because of blank certificate. 
 {{< img src="attachments/userAuthSucess04.png" alt="" >}}
 7. Wired-AutoConfig receives EAP failure and immediately suspends any authentication services for 60 seconds.
 {{< img src="attachments/userAuthSucess05.png" alt="" >}}
 8. Note: NDIS is not dependent on an 802.1x success to be operational and will maintain a DHCP lease if it has one.
 {{< img src="attachments/userAuthSucess06.png" alt="" >}}
-9. Because Juniper switch is configure with 3 retries and a supplicant timeout of 10 seconds, the switch will fail the dot1x process due to having 3 failures and will move to Mac authentication. 
+9. Because Juniper switch is configured with 3 retries and a supplicant timeout of 10 seconds, the switch will fail the dot1x process due to having 3 failures and will move to MAC authentication. 
 {{< img src="attachments/userAuthSucess07.png" alt="" >}}
-10. The switch forwards the Windows machine MAC address to the NAC for Mac authentication. 
+10. The switch forwards the Windows machine MAC address to the NAC for MAC authentication. 
 11. The NAC will search its endpoint identity groups. In this instance, it looks up 'internal endpoints' for membership, authenticates and authorizes the endpoint based on policies and sends an 'Access-Accept'.
 {{< img src="attachments/userAuthSucess08.png" alt="" >}}
-12. Switch marks the port as authorized and maintains the devices active network state.
+12. Switch marks the port as authorized and maintains the device's active network state.
 {{< img src="attachments/userAuthSucess09.png" alt="" >}}
 13. Because the network connectivity is functional the machine can communicate with the internal PKI, the user enrolls and obtains a client certificate.
 {{< img src="attachments/userAuthSucess10.png" alt="" >}}
-14. The Wired-AutoConfig 60 second timer expires and the service tries to authenticate the user with a client certificate from the user. The user has a certificate at this point and so the Wired-AutoConfig service sends the ce rtificate to the NAC.
+14. The Wired-AutoConfig 60 second timer expires and the service tries to authenticate the user with a client certificate from the user. The user has a certificate at this point and so the Wired-AutoConfig service sends the certificate to the NAC.
 {{< img src="attachments/userAuthSucess11.png" alt="" >}}
 15. Switch receives dot1x authentication for the port and forwards this to the NAC.
 16. NAC will check the certificate for authentication, and then will check for authorization of the device. At this point, ISE will either send an 'Access-Accept' or 'Access-Reject'. We're assuming an accept here.
@@ -286,11 +282,9 @@ The HUGE version of this can be found here:
 
 The solution used in this post relies on the built-in Cisco ISE local endpoint identity group called 'internal endpoints'. For this solution, when a machine authenticates to the network, the device gets identified and a general ISE profile is made of the device, which by default adds the device to the group 'internal endpoints', which is how MAB/MAC authentication works when RADIUS fails during the 60 second timeout by WiredAuthconfig on the Windows machine. 
 
-Generally speaking, this works, but issue with the 'internal endpoints' group is that it includes *any* device with a MAC address that connects -- all devices that connect are added to the group. 
+Generally speaking, this works, but the issue with the 'internal endpoints' group is that it includes *any* device with a MAC address that connects -- all devices that connect are added to the group. 
 
-If your risk tolerance is high, this solution may not work. I have not confirmed this, but I believe a solution for this is to create a specific endpoint identity group for these hotdesk devices. Doing this in an automated fashion on ISE would require the posture licensing, so that may be out of the mix. 
-
-The other approach would be to just manually account for these hotdesk devices and statically assign the devices to this group. However, this adds to the already complex configuration that exists here.
+If your risk tolerance is high, this solution may not work. I have not confirmed this, but I believe a solution for this is to create a specific endpoint identity group for these hotdesk devices. Doing this in an automated fashion on ISE would require the posture licensing, so that may be out of the mix.... The other approach would be to just manually account for these hotdesk devices and statically assign the devices to this group. However, this adds to the already complex configuration that exists here.
 
 I believe the risk here is small, so I think internal endpoints works fine. 
 
@@ -298,15 +292,15 @@ I believe the risk here is small, so I think internal endpoints works fine.
 
 ### Simplicity vs. Complexity
 
-I think the solution identified here is pretty slick for the dot1x-hotdesking issue because it maintains a EAP-TLS configurations and doesn't require extra configuration on the Windows devices, or require reboots on devices, etc. 
+I think the solution identified here is pretty slick for the dot1x-hotdesking issue because it maintains an EAP-TLS configuration and doesn't require extra configuration on the Windows devices, or require reboots on devices, etc. 
 
-However, I think this solution comes at the cost of complexity. Some might consider this a bit of a 'Mouse Trap' solution, but the problem itself is complicated. As a result, the entire solution needs to be properly documented and diagramed to understand the interdependency that exists within the system, which is really no more complicated than any other zero trust security framework.
+However, I think this solution comes at the cost of complexity. Some might consider this a bit of a 'Mouse Trap' solution, but the problem itself is complicated. As a result, the entire solution needs to be properly documented and diagrammed to understand the interdependency that exists within the system, which is really no more complicated than any other zero trust security framework.
 
-If this or any other complex system with many interdependcies isn't properly documented, it becomes too much of a snowflake, and the institutional knowledge that someone may have about how it all works becomes a huge risk (aka, the bus factor).
+If this or any other complex system with many interdependencies isn't properly documented, it becomes too much of a snowflake, and the institutional knowledge that someone may have about how it all works becomes a huge risk (aka, the bus factor).
 
 ### Improving Network Security of MAB Solution
 
-I think the security of this solution could be improved by assigning VLANs/Tunnel-Group-IDs and sending these in the Access-Accept to the switch so that the MAB device that has some kind of firewalling/access control list in-place to allow the Windows device to perform for just certificate enrollment and any other login services that be needed.
+I think the security of this solution could be improved by assigning VLANs/Tunnel-Group-IDs and sending these in the Access-Accept to the switch so that the MAB device that has some kind of firewalling/access control list in-place to allow the Windows device to perform for just certificate enrollment and any other login services that may be needed.
 
 # Bonus Information
 
@@ -346,13 +340,13 @@ Below is a list of event IDs from the Wired-AutoConfig log.
 Generally speaking, the event IDs can have mixed messages in them. For example, 15508 indicates an NDIS Port State change, but that can mean the port is *authorized* or *unauthorized*. For example, see below:
 
 {{< img src="attachments/Chronosphere-20250318_2106.24.png" alt="Event 15508 - NDIS Auth State UnAuthorized" >}}
-Event 15508 - NDIS Auth State: UnAuthorized
+Event 15508 - NDIS Auth State: Unauthorized
 
 {{< img src="attachments/Chronosphere-20250318_2109.43.png" alt="Event 15508 - NDIS Auth State - Authorized" >}}
 Event 15508 - NDIS Auth State: Authorized
 
 > [!WARNING]
-> The event IDs, to the best of my knowledge and searching, are not found in a single location from MIcrosoft. Working with Perplexity to search for these event IDs, they appear to be in various discontiguous locations.
+> The event IDs, to the best of my knowledge and searching, are not found in a single location from Microsoft. Working with Perplexity to search for these event IDs, they appear to be in various discontiguous locations.
 > 
 > For example: 
 > - **15506** can be found [here](attachments/https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc736026(v=ws.10))
