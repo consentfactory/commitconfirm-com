@@ -3,7 +3,7 @@ title: "Juniper Mist Dot1x User Authetnication Issue"
 description: "Exploring the cause and solution of a strange dot1x issue from a Juniper Mist deployment."
 date: "2025-04-15"
 draft: false
-tags: [ juniper, juniper-mist, mist, dot1x, nac, cisco, cisco-ise, ise ]
+tags: [ juniper, juniper-mist, mist, dot1x, nac, cisco, cisco-ise, ise, wired-assurance ]
 ---
 It was a December holiday break, and I was working away, preparing for a coming project, but something stirred in the air; something was wrong. 
 
