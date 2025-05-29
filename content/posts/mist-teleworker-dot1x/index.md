@@ -25,6 +25,8 @@ The [official documentation on wired port configuration](https://www.juniper.net
 
 The problem with this is: I'm an idiot, so I need something a bit more clear, succinct, and to the point.
 
+![I'm an idiot - Elmo](attachments/idiot-elmo.gif)
+
 Here's what I learned about device profiles and/or the configuration of these AP Ethernet ports in my own words:
 
 - On port eth0, this is your main uplink and it is a trunk (see item **'A'** on the diagram). The default VLAN is '1' on this port, and this should pretty much be left alone on teleworker APs, so keep this port configured with VLAN 1.
