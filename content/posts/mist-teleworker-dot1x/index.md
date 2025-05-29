@@ -51,6 +51,8 @@ In summary, items **'B'** on the main teleworker diagram need to exist on items 
 
 For the APs, the Mist UI has device profile options that probably meet 90%+ of the use cases needed.
 
+![Device profile ethernet properties](attachments/Chronosphere-20250529_0039.10@2x.png)
+
 On the API side of things, the Mist UI configures the following:
 
 ```json
@@ -148,7 +150,9 @@ The Mist UI configures default device profile options using the ['switch_config'
 
 If you look at the configuration, though, there are actually very few options:
 
-If you use the API, though, there are far more options.
+![switch_config API options](attachments/Chronosphere-20250529_0057.25@2x.png)
+
+If you use the API, though, there are far more options. See below. 
 
 ### Mist API
 
