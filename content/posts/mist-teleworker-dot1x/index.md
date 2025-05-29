@@ -130,6 +130,7 @@ On the API side of things, the Mist UI configures the following:
 ```
 
 > **Note**
+>
 > I'm using the Mist API Extension to quickly gather this information:
 > [GitHub - Mist-Automation-Programmability/mist\_browser\_extension: Web Browser extension for Mist Developers to provide quick access to Mist APIs. The application analyzes the URL of the current tab to provide the org\_id, site\_id (if any), object\_id (if any), and quick access to the main API calls for this page. It can also be used to manage and generate User and Org API Tokens.](https://github.com/Mist-Automation-Programmability/mist_browser_extension)
 
@@ -154,7 +155,7 @@ This property contains options for dot1x, MAC auth, Mist NAC, and more, providin
 
 Which, as it turns out, means `port_config` takes precedence over `switch_config`. However, `port_config` options are not available in the Mist UI, only in the API.
 
-> [!note]
+> **Note**
 > 
 > For the older Mist documentation, the link they state (https://api.mist.com/api/v1/docs/home) doesn't appear to work. You'll need to append the URL with your instance.
 > e.g., my demo lab is in Global 3, so my old API link is https://api.ac2.mist.com/api/v1/docs/home
