@@ -24,7 +24,7 @@ The [official documentation on wired port configuration](https://www.juniper.net
 > [!NOTE]
 > Use the additional wired ports to extend a tunneled VLAN to a wired port.
 
-The problem with this is: I'm an idiot, so I need something a bit more clear, succinct, and to the point.
+The problem with this is: I'm an idiot, so I need something a bit more clear and detailed that explains the *why* of a configuration.
 
 ![I'm an idiot - Elmo](attachments/idiot-elmo.gif)
 
