@@ -51,7 +51,7 @@ In summary, items **'B'** on the main teleworker diagram need to exist on items 
 
 For the APs, the Mist UI has device profile options that probably meet 90%+ of the use cases needed.
 
-![Device profile ethernet properties](attachments/Chronosphere-20250529_0039.10@2x.png)
+![Device profiles properties for wired interface](attachments/Chronosphere-20250529_0013.47@2x.png)
 
 On the API side of things, the Mist UI configures the following:
 
