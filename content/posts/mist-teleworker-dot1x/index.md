@@ -1,5 +1,4 @@
 ---
-
 title: "Juniper Mist Teleworker Wired Port Tunneling and Dot1x"
 description: "Documenting how wired tunneling works and how to configure Dot1x for wired AP ports."
 date: "2025-04-15"
