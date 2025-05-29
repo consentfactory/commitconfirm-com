@@ -14,7 +14,7 @@ The three questions:
 - What are the differences between creating a device profile in the Mist UI and creating one via the API?
 - How can an API call be made to create or modify a device profile that also configures RADIUS/802.1x on AP wired Ethernet ports?
 
-[Mist Teleworker Solution Amended with Wired Teleworker Connection](attachments/Pasted%20image%2020250528174318.png)
+![Mist Teleworker Solution Amended with Wired Teleworker Connection](attachments/Pasted%20image%2020250528174318.png)
 *(Mist Teleworker Solution Amended with Wired Teleworker Connection (Right-click and open in new tab for larger version))*
 
 ## How are tunnels established between the additional wired ports on APs that have eth1+ (i.e., eth1-4)?
