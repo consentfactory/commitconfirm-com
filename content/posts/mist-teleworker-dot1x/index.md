@@ -162,7 +162,7 @@ The Mist API has a property option not available in the UI: *port_config*.
 
 This property contains options for dot1x, MAC auth, Mist NAC, and more, providing much more versatility than the *switch_config* property. In fact, in the [older Mist API documentation*](https://api.ac2.mist.com/api/v1/docs/Site#device-config), it makes the following note:
 
-```
+```json
 // eth0 is not allowed here
 // if specified, this takes precedence over switch_config (deprecated)
 ```
