@@ -145,7 +145,7 @@ The Mist API has a property option not available in the UI: *port_config*.
 
 [Ap Port Config - Mist API Reference](https://www.juniper.net/documentation/us/en/software/mist/api/http/models/structures/ap-port-config)
 
-This property contains options for dot1x, MAC auth, Mist NAC, and more, providing much more versatility than the *switch_config* property. In fact, in the [older Mist API documentation](https://api.ac2.mist.com/api/v1/docs/Site#device-config), it makes the following note:
+This property contains options for dot1x, MAC auth, Mist NAC, and more, providing much more versatility than the *switch_config* property. In fact, in the [older Mist API documentation*](https://api.ac2.mist.com/api/v1/docs/Site#device-config), it makes the following note:
 
 ```
         // eth0 is not allowed here
@@ -153,6 +153,11 @@ This property contains options for dot1x, MAC auth, Mist NAC, and more, providin
 ```
 
 Which, as it turns out, means `port_config` takes precedence over `switch_config`. However, `port_config` options are not available in the Mist UI, only in the API.
+
+> [!note]
+> 
+> For the older Mist documentation, the link they state (https://api.mist.com/api/v1/docs/home) doesn't appear to work. You'll need to append the URL with your instance.
+> e.g., my demo lab is in Global 3, so my old API link is https://api.ac2.mist.com/api/v1/docs/home
 
 ## How can an API call be made to create or modify a device profile that also configures RADIUS/802.1x on AP wired Ethernet ports?
 
