@@ -171,8 +171,13 @@ Which, as it turns out, means `port_config` takes precedence over `switch_config
 
 > [!NOTE]
 > 
-> For the older Mist documentation, the link they state (https://api.mist.com/api/v1/docs/home) doesn't appear to work. You'll need to append the URL with your instance.
-> e.g., my demo lab is in Global 3, so my old API link is https://api.ac2.mist.com/api/v1/docs/home
+> For the older Mist documentation, the link they state doesn't appear to work.
+> 
+> (https://api.mist.com/api/v1/docs/home)
+> 
+> You'll need to append the URL with your instance; e.g., my demo lab is in Global 3, so my old API link is:
+> 
+> https://api.ac2.mist.com/api/v1/docs/home
 
 ## How can an API call be made to create or modify a device profile that also configures RADIUS/802.1x on AP wired Ethernet ports?
 
