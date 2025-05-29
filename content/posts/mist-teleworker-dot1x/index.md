@@ -36,7 +36,11 @@ Here's what I learned about device profiles and/or the configuration of these AP
 
 See the following tunnel configuration from a Mist Edge configuration.
 
+![Mist Edge tunnel configuration with VLANs](attachments/Chronosphere-20250529_0009.44@2x.png)
+
 If VLANs 800 and 900 are on the tunnel (in my hypothetical) in the Mist Edge configuration, and if the VLANs are configured on the ports (see below), then tunnels will be established.
+
+![Device profiles properties for wired interface](attachments/Chronosphere-20250529_0013.47@2x.png)
 
 In summary, items **'B'** on the main teleworker diagram need to exist on items **'E'** in the Mist Edge tunnel configuration for the wired ports to tunnel back to the Mist Edge.
 
