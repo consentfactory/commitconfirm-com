@@ -15,7 +15,7 @@ The three questions:
 - How can an API call be made to create or modify a device profile that also configures RADIUS/802.1x on AP wired Ethernet ports?
 
 ![Mist Teleworker Solution Amended with Wired Teleworker Connection](attachments/Pasted%20image%2020250528174318.png)
-*(Mist Teleworker Solution Amended with Wired Teleworker Connection (Right-click and open in new tab for larger version))*
+*(Mist Teleworker Solution Amended with Wired Teleworker Connection (Click for larger version))*
 
 ## How are tunnels established between the additional wired ports on APs that have eth1+ (i.e., eth1-4)?
 
@@ -157,8 +157,8 @@ The Mist API has a property option not available in the UI: *port_config*.
 This property contains options for dot1x, MAC auth, Mist NAC, and more, providing much more versatility than the *switch_config* property. In fact, in the [older Mist API documentation*](https://api.ac2.mist.com/api/v1/docs/Site#device-config), it makes the following note:
 
 ```
-        // eth0 is not allowed here
-        // if specified, this takes precedence over switch_config (deprecated)
+// eth0 is not allowed here
+// if specified, this takes precedence over switch_config (deprecated)
 ```
 
 Which, as it turns out, means `port_config` takes precedence over `switch_config`. However, `port_config` options are not available in the Mist UI, only in the API.
@@ -213,7 +213,7 @@ In this configuration:
 
 - I'm configuring MAC-based authentication (`enable_mac_auth`)
 - Configuring the tunnel to use, which is the same tunnel being used by the WLAN profile (`mxtunnel_id`)
-    - **Note**: You cannot use different tunnels on wired and wireless ports; i.e., you cannot have `wxtunnels` and `mxtunnels`
+    - **Note**: You cannot use different tunnels on wired and wireless ports; i.e., you cannot have `wxtunnels` and `mxtunnels`j with different tunnel IDs. The AP establishes only one tunnel at a time. 
 - Using Access Assurance (`mist_nac`, and be sure to also enable it with `"enabled": true`)
 - Doing dot1x port authentication on the wired ports (`port_auth`)
 
