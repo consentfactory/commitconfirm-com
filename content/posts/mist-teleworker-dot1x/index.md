@@ -173,7 +173,7 @@ Which, as it turns out, means `port_config` takes precedence over `switch_config
 > 
 > For the older Mist documentation, the link they state doesn't appear to work.
 > 
-> (https://api.mist.com/api/v1/docs/home)
+> https://api.mist.com/api/v1/docs/home
 > 
 > You'll need to append the URL with your instance; e.g., my demo lab is in Global 3, so my old API link is:
 > 
