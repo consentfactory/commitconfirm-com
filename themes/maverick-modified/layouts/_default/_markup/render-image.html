@@ -1,8 +1,10 @@
+<a href="{{ if not (strings.HasPrefix .Destination "http") }}{{ .Page.RelPermalink }}{{end}}{{ .Destination | safeURL }}">
 <img
-  src="{{ .Destination | safeURL }}"
+  src='{{ if not (strings.HasPrefix .Destination "http") }}{{ .Page.RelPermalink }}{{end}}{{ .Destination | safeURL }}'
   alt="{{ .Text }}"
   loading="lazy"
   decoding="async"
   class="full-width"
 />
+</a>
 
