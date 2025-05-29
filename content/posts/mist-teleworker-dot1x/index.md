@@ -139,7 +139,9 @@ On the API side of things, the Mist UI configures the following:
 > [!NOTE]
 >
 > I'm using the Mist API Extension to quickly gather this information:
+>
 > [GitHub - Mist-Automation-Programmability/mist\_browser\_extension](https://github.com/Mist-Automation-Programmability/mist_browser_extension)
+>
 > This is a web browser extension for Mist Developers to provide quick access to Mist APIs. The application analyzes the URL of the current tab to provide the org\_id, site\_id (if any), object\_id (if any), and quick access to the main API calls for this page. It can also be used to manage and generate User and Org API Tokens.
 
 The Mist UI configures default device profile options using the ['switch_config' property in the API.](https://www.juniper.net/documentation/us/en/software/mist/api/http/api/orgs/device-profiles/create-org-device-profile)
