@@ -6,7 +6,7 @@ draft: false
 tags: [ juniper, juniper-mist, mist, dot1x, wired-assurance, teleworker, mist-edge, access-assurance, mist-nac ]
 ---
 
-In this post, I'm going to get straight to the point and answer three questions I had about the [Juniper teleworker solution](https://www.juniper.net/documentation/us/en/software/mist/mist-edge-guide/mist-edge/topics/topic-map/switch-proxy-server-config.html) that I eventually solved through trial and error. This is focused on configuring the additional wired ports available—at the time of writing—on AP12, AP41, AP43, AP45, and AP47.
+In this post, I'm going to get straight to the point and answer three questions I had about the [Juniper teleworker solution](https://www.juniper.net/documentation/us/en/software/mist/mist-edge-guide/mist-edge/topics/topic-map/teleworker-configure.html) that I eventually solved through trial and error. This is focused on configuring the additional wired ports available—at the time of writing—on AP12, AP41, AP43, AP45, and AP47.
 
 The three questions:
 
