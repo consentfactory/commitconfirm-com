@@ -14,7 +14,7 @@
     <link href="https://www.google-analytics.com" rel="preconnect" crossorigin>
     <link rel="alternate" type="application/atom+xml" title="{{ .Site.Title }}" href="{{ .Site.BaseURL }}/atom.xml" />
     <link rel="alternate" type="application/json" title="{{ .Site.Title }}" href="{{ .Site.BaseURL }}/feed.json" />
-    <link rel="shortcut icon" type="image/png" href="/static/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="/favicon.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bricolage+Grotesque">
     {{ $styles := resources.Get "scss/styles.scss" | toCSS (dict "outputStyle" "compressed") | minify }}
     {{ $styles_extra := resources.Get "scss/_extra.scss" | toCSS (dict "outputStyle" "compressed") | minify }}
