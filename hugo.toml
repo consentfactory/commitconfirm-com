@@ -7,7 +7,7 @@ theme = [ "hugo-admonitions", "maverick-modified"]
   pages = "/:slug"
 
 [params]
-  logo = '/static/favicon.ico'
+  logo = '/favicon.ico'
   description = "Technical documentation blog by Jimmy Taylor"
   author = 'Jimmy Taylor'
   items = 10
